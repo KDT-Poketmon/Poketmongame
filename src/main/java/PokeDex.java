@@ -80,30 +80,34 @@ public class PokeDex {
 
     // 상대 트레이너의 포켓몬 리스트 제공
     public static List<Pokemon> getKamenPokemons() {
-        return List.of(
-                searchPokemon("꼬마돌"),
-                searchPokemon("미뇽"),
-                searchPokemon("나무지기"),
-                searchPokemon("리아코"),
-                searchPokemon("잉어킹")
-        );
+        return createPokemonList(List.of("삐삐", "망나뇽", "나무지기", "리아코", "잉어킹"));
     }
 
+    public static List<Pokemon> createPokemonList(List<String> pokemonNames) {
+        return pokemonNames.stream()
+                .map(PokeDex::searchPokemon)
+                .filter(Objects::nonNull)
+                .toList();
+    }
+
+
     // 야생의 포켓몬 랜덤 생성
+    static List<Pokemon> wildPokemons = new ArrayList<>();
+
+    static {
+        wildPokemons.addAll(pokemonByName.values());
+        wildPokemons.removeAll(starterPokemons);
+    }
+
     public static Pokemon getRandomWildPokemon() {
-        List<Pokemon> allPokemons = new ArrayList<>(pokemonByName.values());
-
-        // 스타터 포켓몬 제외
-        allPokemons.removeAll(starterPokemons);
-
-        // 랜덤 선택
-        if (allPokemons.isEmpty()) {
+        if (wildPokemons.isEmpty()) {
             throw new IllegalStateException("야생 포켓몬이 없습니다.");
         }
 
         Random random = new Random();
-        return allPokemons.get(random.nextInt(allPokemons.size()));
+        return wildPokemons.get(random.nextInt(wildPokemons.size()));
     }
+
 
     public enum PokeCategory {
         WATER, FIRE, EARTH, SKY, LEGENDARY, MYSTIC, NORMAL, ELECTRIC

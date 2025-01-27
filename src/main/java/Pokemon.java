@@ -12,6 +12,7 @@ public class Pokemon implements IPokemon {
     private int Def;
     private PokeDex.PokeCategory pokeCategory;
 
+
     // 포켓몬 이름을 반드시 입력하도록 생성자 정의
     public Pokemon(String pokemonName, String customName, int Hp, int Atk, int Def) {
         if (pokemonName == null || pokemonName.isEmpty()) {
