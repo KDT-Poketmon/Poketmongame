@@ -9,28 +9,32 @@ public class Trainer implements ITrainer {
 
     @Override
     public void hunt(Pokemon wildPokemon) {
-        // 야생의 포켓몬은 만나서 싸우거나 잡거나
+//        System.out.println("hunt 호출한 트레이너: " + this.toString());
+//        System.out.println("hunt 호출 전 트레이너 포켓몬:");
+//        this.showPokemons();
+
         System.out.println("1:battle, 2:capture / else:pass");
         int battleOrCapture = inputReader.nextInt();
+
         switch (battleOrCapture) {
             case 1:
                 battle(wildPokemon);
                 break;
             case 2:
-                capture(wildPokemon);
                 Pokemon capturedPokemon = capture(wildPokemon);
                 if (capturedPokemon != null) {
                     capturedPokemonList.add(capturedPokemon);
-                    capturedPokemonByName.put(
-                            capturedPokemon.getPokemonName(), capturedPokemon
-                    );
+                    capturedPokemonByName.put(capturedPokemon.getPokemonName(), capturedPokemon);
                 }
                 break;
             default:
                 break;
-
         }
+
+//        System.out.println("hunt 종료 후 트레이너 포켓몬:");
+//        this.showPokemons();
     }
+
 
     @Override
     public Pokemon capture(Pokemon wildPokemon) {
@@ -101,9 +105,9 @@ public class Trainer implements ITrainer {
 
         System.out.println("트레이너가 소유한 포켓몬 리스트:");
         for (Pokemon pokemon : capturedPokemonList) {
-//            System.out.printf("이름: %s, HP: %d, Atk: %d, Def: %d%n",
-//                    pokemon.getPokemonName(), pokemon.getHp(), pokemon.getAtk(), pokemon.getDef());
-            System.out.println(pokemon.getPokemonName() );
+            System.out.printf("이름: %s, HP: %d, Atk: %d, Def: %d%n",
+                    pokemon.getPokemonName(), pokemon.getHp(), pokemon.getAtk(), pokemon.getDef());
+//            System.out.println(pokemon.getPokemonName() );
         }
     }
 }

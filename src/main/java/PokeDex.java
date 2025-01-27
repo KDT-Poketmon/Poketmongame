@@ -65,8 +65,15 @@ public class PokeDex {
                 Map.entry(new Pokemon("꼬렛", 50, 20, 15), PokeCategory.NORMAL),
                 Map.entry(new Pokemon("레쿠쟈", 310, 180, 120), PokeCategory.SKY),
                 Map.entry(new Pokemon("마그마", 110, 60, 50), PokeCategory.FIRE),
-                Map.entry(new Pokemon("전룡", 140, 75, 60), PokeCategory.ELECTRIC)
+                Map.entry(new Pokemon("전룡", 140, 75, 60), PokeCategory.ELECTRIC),
+                // 추가된 포켓몬
+                Map.entry(new Pokemon("삐삐", 100, 55, 45), PokeCategory.NORMAL),
+                Map.entry(new Pokemon("망나뇽", 150, 90, 85), PokeCategory.SKY),
+                Map.entry(new Pokemon("나무지기", 100, 45, 50), PokeCategory.EARTH),
+                Map.entry(new Pokemon("리아코", 100, 48, 55), PokeCategory.WATER),
+                Map.entry(new Pokemon("잉어킹", 60, 10, 20), PokeCategory.WATER)
         );
+
 
         for (Map.Entry<Pokemon, PokeCategory> entry : additionalData.entrySet()) {
             Pokemon pokemon = entry.getKey();
@@ -78,17 +85,35 @@ public class PokeDex {
 
     }
 
-    // 상대 트레이너의 포켓몬 리스트 제공
-    public static List<Pokemon> getKamenPokemons() {
-        return createPokemonList(List.of("삐삐", "망나뇽", "나무지기", "리아코", "잉어킹"));
-    }
-
+    //kamen 포켓몬 리스트 정의
     public static List<Pokemon> createPokemonList(List<String> pokemonNames) {
         return pokemonNames.stream()
-                .map(PokeDex::searchPokemon)
+                .map(name -> {
+                    Pokemon pokemon = searchPokemon(name);
+                    if (pokemon == null) {
+                        System.out.printf("PokeDex.searchPokemon(): %s 포켓몬을 찾을 수 없습니다.%n", name);
+                    }
+                    return pokemon;
+                })
                 .filter(Objects::nonNull)
                 .toList();
     }
+
+    // 상대 트레이너의 포켓몬 리스트 제공
+    public static List<Pokemon> getKamenPokemons() {
+        // Kamen의 포켓몬 이름 리스트
+        List<String> pokemonNames = List.of("삐삐", "망나뇽", "나무지기", "리아코", "잉어킹");
+
+        // 이름을 기반으로 포켓몬 리스트 생성
+        List<Pokemon> kamenPokemons = createPokemonList(pokemonNames);
+
+        if (kamenPokemons.isEmpty()) {
+            throw new IllegalStateException("Kamen의 포켓몬 리스트가 비어 있습니다. 데이터를 확인하세요.");
+        }
+
+        return kamenPokemons;
+    }
+
 
 
     // 야생의 포켓몬 랜덤 생성
