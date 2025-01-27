@@ -10,27 +10,29 @@ public class Trainer implements ITrainer {
     @Override
     public void hunt(Pokemon wildPokemon) {
         // 야생의 포켓몬은 만나서 싸우거나 잡거나
-        System.out.println("1:battle, 2:capture / else:pass");
+        System.out.println("1: battle, 2: capture / else: pass");
         int battleOrCapture = inputReader.nextInt();
         switch (battleOrCapture) {
             case 1:
+                // battle 호출
                 battle(wildPokemon);
                 break;
-            case 2:
-                capture(wildPokemon);
+
+            case 2: // 포켓몬 캡처
                 Pokemon capturedPokemon = capture(wildPokemon);
                 if (capturedPokemon != null) {
                     capturedPokemonList.add(capturedPokemon);
-                    capturedPokemonByName.put(
-                            capturedPokemon.getPokemonName(), capturedPokemon
-                    );
+                    capturedPokemonByName.put(capturedPokemon.getPokemonName(), capturedPokemon);
+                    System.out.printf("%s(이)가 성공적으로 잡혔습니다!%n", capturedPokemon.getPokemonName());
                 }
                 break;
-            default:
-                break;
 
+            default: // 무시
+                System.out.println("포켓몬을 무시하고 지나쳤습니다.");
+                break;
         }
     }
+
 
     @Override
     public Pokemon capture(Pokemon wildPokemon) {
@@ -64,9 +66,22 @@ public class Trainer implements ITrainer {
             if (isMyTurn) {
                 // 내 포켓몬 공격
                 myPokemon.attack(wildPokemon);
+                System.out.printf("%s이(가) %s을(를) 공격했습니다! %s의 남은 HP: %d%n",
+                        myPokemon.getPokemonName(), wildPokemon.getPokemonName(),
+                        wildPokemon.getPokemonName(), wildPokemon.getHp());
             } else {
                 // 상대 포켓몬 공격
                 wildPokemon.attack(myPokemon);
+                System.out.printf("%s이(가) %s을(를) 공격했습니다! %s의 남은 HP: %d%n",
+                        wildPokemon.getPokemonName(), myPokemon.getPokemonName(),
+                        myPokemon.getPokemonName(), myPokemon.getHp());
+            }
+
+            // 야생 포켓몬 HP가 30% 이하로 떨어지면 `hunt` 메서드 호출
+            if (wildPokemon.getHp() > 0 && wildPokemon.getHp() <= (wildPokemon.getMaxHp() * 0.3)) {
+                System.out.println("야생 포켓몬의 체력이 30% 이하로 떨어졌습니다!");
+                hunt(wildPokemon); // 새로운 선택지를 제공
+                return; // 선택지 이후 전투 종료
             }
 
             // 턴 교체
@@ -76,11 +91,10 @@ public class Trainer implements ITrainer {
         // 전투 결과 출력
         if (wildPokemon.getHp() == 0) {
             System.out.printf("%s이(가) 쓰러졌습니다! 승리!%n", wildPokemon.getPokemonName());
-        } else {
+        } else if (myPokemon.getHp() == 0) {
             System.out.printf("%s이(가) 쓰러졌습니다! 패배!%n", myPokemon.getPokemonName());
         }
     }
-
 
     @Override
     public Pokemon searchDex(String pokemonName) {

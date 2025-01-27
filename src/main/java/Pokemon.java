@@ -1,4 +1,5 @@
 import lombok.Getter;
+//import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter
@@ -10,6 +11,7 @@ public class Pokemon implements IPokemon {
     private int Hp;
     private int Atk;
     private int Def;
+    private int MaxHp;
     private PokeDex.PokeCategory pokeCategory;
 
     // 포켓몬 이름을 반드시 입력하도록 생성자 정의
@@ -20,13 +22,14 @@ public class Pokemon implements IPokemon {
         this.pokemonName = pokemonName;
         this.customName = customName != null ? customName : pokemonName;
         this.Hp = Hp;
+        this.MaxHp = Hp;
         this.Atk = Atk;
         this.Def = Def;
     }
 
     // 간소화된 생성자: 커스텀 이름과 능력치를 기본값으로 설정
     public Pokemon(String pokemonName) {
-        this(pokemonName, pokemonName, 100, 50, 30);
+        this(pokemonName, pokemonName, 100, 50, 200);
     }
 
     public Pokemon(String pokemonName, int Hp, int Atk, int Def) {
