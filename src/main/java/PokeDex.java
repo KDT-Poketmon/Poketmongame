@@ -13,6 +13,8 @@ public class PokeDex {
         EVOLUTION_MAP.put("꼬부기", "어니부기");
         EVOLUTION_MAP.put("어니부기", "거북왕");
         EVOLUTION_MAP.put("이상해씨", "이상해풀");
+        EVOLUTION_MAP.put("푸린","푸크린");
+        EVOLUTION_MAP.put("삐삐","픽시");
         // 필요하면 더 추가
     }
 
@@ -61,7 +63,9 @@ public class PokeDex {
                 Map.entry(new Pokemon("꼬렛", 50, 20, 15), PokeCategory.NORMAL),
                 Map.entry(new Pokemon("레쿠쟈", 310, 180, 120), PokeCategory.SKY),
                 Map.entry(new Pokemon("마그마", 110, 60, 50), PokeCategory.FIRE),
-                Map.entry(new Pokemon("전룡", 140, 75, 60), PokeCategory.ELECTRIC)
+                Map.entry(new Pokemon("전룡", 140, 75, 60), PokeCategory.ELECTRIC),
+                Map.entry(new Pokemon("푸린",120,60,100),PokeCategory.MOON),
+                Map.entry(new Pokemon("삐삐",140,90,79),PokeCategory.MOON)
         );
 
         for (Map.Entry<Pokemon, PokeCategory> entry : additionalData.entrySet()) {
@@ -91,7 +95,7 @@ public class PokeDex {
     }
 
     public enum PokeCategory {
-        WATER, FIRE, EARTH, SKY, LEGENDARY, MYSTIC, NORMAL, ELECTRIC
+        WATER, FIRE, EARTH, SKY, LEGENDARY, MYSTIC, NORMAL, ELECTRIC, MOON
     }
 
     public static Pokemon searchPokemon(String name) {
