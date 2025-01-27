@@ -79,7 +79,7 @@ public class PokeDex {
     }
 
     // 상대 트레이너의 포켓몬 리스트 제공
-    public static List<Pokemon> getStarterPokemons() {
+    public static List<Pokemon> getKamenPokemons() {
         return List.of(
                 searchPokemon("꼬마돌"),
                 searchPokemon("미뇽"),

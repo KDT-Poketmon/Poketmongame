@@ -20,20 +20,24 @@ public class GameLauncher {
         System.out.printf("이름: %s, HP: %d, Atk: %d, Def: %d%n",
                 charmander.getPokemonName(), charmander.getHp(), charmander.getAtk(), charmander.getDef());
 
-        // 트레이너 이름 설정 및 스타터 포켓몬 추가
-        trainerkamen.getCapturedPokemonList().add(PokeDex.searchPokemon("피카츄")); // Ash의 스타터 포켓몬
-        trainerkadan.getCapturedPokemonList().add(PokeDex.searchPokemon("꼬부기")); // Misty의 스타터 포켓몬
+        // 플레이어 스타터 포켓몬 추가
+        trainerkadan.getCapturedPokemonList().add(PokeDex.searchPokemon("피카츄")); // Kadan의 스타터 포켓몬
 
-        System.out.println("\nkamen의 포켓몬:");
-        trainerkamen.showPokemons();
+        // 상대 트레이너의 포켓몬 추가
+        trainerkamen.getCapturedPokemonList().addAll(PokeDex.getKamenPokemons());
 
         System.out.println("\nkadan의 포켓몬:");
         trainerkadan.showPokemons();
+
+        System.out.println("\nkamen의 포켓몬:");
+        trainerkamen.showPokemons();
 
         // 3. 야생 포켓몬 랜덤 만남
         // 누가? 야생 포켓몬을 만나는가?
         Pokemon wildPokemon = PokeDex.getRandomWildPokemon();
         System.out.printf("\n야생의 %s(이)가 나타났다!%n", wildPokemon.getPokemonName());
+
+        // 플레이어가 야생 포켓몬과 상호작용
         trainerkamen.hunt(wildPokemon);
 
 
