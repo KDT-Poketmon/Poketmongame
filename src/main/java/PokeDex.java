@@ -13,6 +13,11 @@ public class PokeDex {
         EVOLUTION_MAP.put("꼬부기", "어니부기");
         EVOLUTION_MAP.put("어니부기", "거북왕");
         EVOLUTION_MAP.put("이상해씨", "이상해풀");
+        EVOLUTION_MAP.put("꼬마돌", "딱구리");
+        EVOLUTION_MAP.put("미뇽", "망나뇽");
+        EVOLUTION_MAP.put("나무지기", "나무돌이");
+        EVOLUTION_MAP.put("리아코", "엘리게일");
+        EVOLUTION_MAP.put("잉어킹", "갸라도스");
         // 필요하면 더 추가
     }
 
@@ -72,7 +77,18 @@ public class PokeDex {
         }
 
     }
-    
+
+    // 상대 트레이너의 포켓몬 리스트 제공
+    public static List<Pokemon> getStarterPokemons() {
+        return List.of(
+                searchPokemon("꼬마돌"),
+                searchPokemon("미뇽"),
+                searchPokemon("나무지기"),
+                searchPokemon("리아코"),
+                searchPokemon("잉어킹")
+        );
+    }
+
     // 야생의 포켓몬 랜덤 생성
     public static Pokemon getRandomWildPokemon() {
         List<Pokemon> allPokemons = new ArrayList<>(pokemonByName.values());
