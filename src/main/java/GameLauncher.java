@@ -1,8 +1,8 @@
 public class GameLauncher {
     public static void main(String[] args) {
         // 트레이너 생성
-        Trainer trainerkamen = new Trainer();
-        Trainer trainerkadan = new Trainer();
+        Trainer trainerkamen = new Trainer(); // 플레이어(나)
+        Trainer trainerkadan = new Trainer(); // 상대 플레이어
 
         // 트레이너와 야생 포켓몬 출력
         System.out.println("트레이너 Kamen와 Kadan이 생성되었습니다!");
