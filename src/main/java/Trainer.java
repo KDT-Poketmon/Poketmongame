@@ -6,6 +6,7 @@ public class Trainer implements ITrainer {
     List<Pokemon> capturedPokemonList = new ArrayList<>();
     Map<String, Pokemon> capturedPokemonByName = new HashMap<>();
     Scanner inputReader = new Scanner(System.in);
+    public String currentLocation;
 
     @Override
     public void hunt(Pokemon wildPokemon) {
@@ -105,4 +106,10 @@ public class Trainer implements ITrainer {
                     pokemon.getPokemonName(), pokemon.getHp(), pokemon.getAtk(), pokemon.getDef());
         }
     }
+
+    @Override
+    public void move(String currentLocation) {
+        this.currentLocation = "태초마을";
+    }
+
 }
