@@ -13,11 +13,16 @@ public class PokeDex {
         EVOLUTION_MAP.put("꼬부기", "어니부기");
         EVOLUTION_MAP.put("어니부기", "거북왕");
         EVOLUTION_MAP.put("이상해씨", "이상해풀");
-        EVOLUTION_MAP.put("꼬마돌", "딱구리");
-        EVOLUTION_MAP.put("미뇽", "망나뇽");
-        EVOLUTION_MAP.put("나무지기", "나무돌이");
-        EVOLUTION_MAP.put("리아코", "엘리게일");
-        EVOLUTION_MAP.put("잉어킹", "갸라도스");
+// <<<<<<< feature/Trade-Poket/Trade-Poket_main
+//         EVOLUTION_MAP.put("꼬마돌", "딱구리");
+//         EVOLUTION_MAP.put("미뇽", "망나뇽");
+//         EVOLUTION_MAP.put("나무지기", "나무돌이");
+//         EVOLUTION_MAP.put("리아코", "엘리게일");
+//         EVOLUTION_MAP.put("잉어킹", "갸라도스");
+// =======
+//         EVOLUTION_MAP.put("푸린","푸크린");
+//         EVOLUTION_MAP.put("삐삐","픽시");
+// >>>>>>> main
         // 필요하면 더 추가
     }
 
@@ -57,6 +62,7 @@ public class PokeDex {
         Map<Pokemon, PokeCategory> additionalData = Map.ofEntries(
                 Map.entry(new Pokemon("이상해씨", 100, 50, 55), PokeCategory.EARTH),
                 Map.entry(new Pokemon("리자몽", 150, 84, 78), PokeCategory.FIRE),
+                Map.entry(new Pokemon("잉어킹", 170, 88, 65), PokeCategory.WATER),
                 Map.entry(new Pokemon("갸라도스", 190, 125, 79), PokeCategory.WATER),
                 Map.entry(new Pokemon("잠만보", 250, 110, 65), PokeCategory.NORMAL),
                 Map.entry(new Pokemon("루기아", 300, 150, 120), PokeCategory.LEGENDARY),
@@ -66,12 +72,17 @@ public class PokeDex {
                 Map.entry(new Pokemon("레쿠쟈", 310, 180, 120), PokeCategory.SKY),
                 Map.entry(new Pokemon("마그마", 110, 60, 50), PokeCategory.FIRE),
                 Map.entry(new Pokemon("전룡", 140, 75, 60), PokeCategory.ELECTRIC),
-                // 추가된 포켓몬
-                Map.entry(new Pokemon("삐삐", 100, 55, 45), PokeCategory.NORMAL),
-                Map.entry(new Pokemon("망나뇽", 150, 90, 85), PokeCategory.SKY),
-                Map.entry(new Pokemon("나무지기", 100, 45, 50), PokeCategory.EARTH),
-                Map.entry(new Pokemon("리아코", 100, 48, 55), PokeCategory.WATER),
-                Map.entry(new Pokemon("잉어킹", 60, 10, 20), PokeCategory.WATER)
+// <<<<<<< feature/Trade-Poket/Trade-Poket_main
+//                 // 추가된 포켓몬
+//                 Map.entry(new Pokemon("삐삐", 100, 55, 45), PokeCategory.NORMAL),
+//                 Map.entry(new Pokemon("망나뇽", 150, 90, 85), PokeCategory.SKY),
+//                 Map.entry(new Pokemon("나무지기", 100, 45, 50), PokeCategory.EARTH),
+//                 Map.entry(new Pokemon("리아코", 100, 48, 55), PokeCategory.WATER),
+//                 Map.entry(new Pokemon("잉어킹", 60, 10, 20), PokeCategory.WATER)
+// =======
+//                 Map.entry(new Pokemon("푸린",120,60,100),PokeCategory.MOON),
+//                 Map.entry(new Pokemon("삐삐",140,90,79),PokeCategory.MOON)
+// >>>>>>> main
         );
 
 
@@ -135,7 +146,7 @@ public class PokeDex {
 
 
     public enum PokeCategory {
-        WATER, FIRE, EARTH, SKY, LEGENDARY, MYSTIC, NORMAL, ELECTRIC
+        WATER, FIRE, EARTH, SKY, LEGENDARY, MYSTIC, NORMAL, ELECTRIC, MOON
     }
 
     public static Pokemon searchPokemon(String name) {
