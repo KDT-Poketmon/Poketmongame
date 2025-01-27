@@ -5,5 +5,5 @@ public interface IPokemon {
     public void flee(int enemyLv);
     //evolve
     public Pokemon evolve();
-
+    public Pokemon evolve(PokeDex.PokeCategory pokeCategory);
 }
