@@ -128,7 +128,7 @@ public class Trainer implements ITrainer {
     public void chooseDestinationAndMove() {
         Scanner scanner = new Scanner(System.in);
 
-        // Continent 클래스의 목적지 목록 사용
+        // Continent 클래스의 목적지 목록 출력
         System.out.println("\n--- 이동 가능한 목적지 리스트 ---");
         for (Map.Entry<Integer, String> entry : Continent.Map.entrySet()) {
             System.out.printf("%d. %s%n", entry.getKey(), entry.getValue());
@@ -153,62 +153,10 @@ public class Trainer implements ITrainer {
         String destination = Continent.Map.get(destinationChoice);
         System.out.println("선택한 목적지: " + destination);
 
-        // 현재 보유한 Fly, Surf 포켓몬 확인
-        FlyPokemon flyPokemon = null;
-        SurfPokemon surfPokemon = null;
-
-        for (Pokemon pokemon : this.getCapturedPokemonList()) {
-            if (pokemon instanceof FlyPokemon && flyPokemon == null) {
-                flyPokemon = (FlyPokemon) pokemon;
-            } else if (pokemon instanceof SurfPokemon && surfPokemon == null) {
-                surfPokemon = (SurfPokemon) pokemon;
-            }
-        }
-
-        // 이동 방법 선택 메뉴 표시
-        System.out.println("\n--- 이동 방법 선택 ---");
-        if (flyPokemon != null) {
-            System.out.println("1. 공중날기 사용 (포켓몬: " + flyPokemon.getCustomName() + ")");
-        }
-        if (surfPokemon != null) {
-            System.out.println("2. 파도타기 사용 (포켓몬: " + surfPokemon.getCustomName() + ")");
-        }
-        System.out.println("3. 이동 취소");
-
-        System.out.print("선택: ");
-        int methodChoice;
-
-        // 이동 방법 입력
-        try {
-            methodChoice = Integer.parseInt(scanner.nextLine());
-        } catch (NumberFormatException e) {
-            System.out.println("숫자를 입력해주세요.");
-            return;
-        }
-
-        // 선택에 따라 이동 실행
-        switch (methodChoice) {
-            case 1: // 공중날기
-                if (flyPokemon != null) {
-                    System.out.println(flyPokemon.getCustomName() + "가 공중날기를 사용하여 " + destination + "으로 이동했습니다!");
-                } else {
-                    System.out.println("공중날기 가능한 포켓몬이 없습니다!");
-                }
-                break;
-            case 2: // 파도타기
-                if (surfPokemon != null) {
-                    System.out.println(surfPokemon.getCustomName() + "가 파도타기를 사용하여 " + destination + "으로 이동했습니다!");
-                } else {
-                    System.out.println("파도타기 가능한 포켓몬이 없습니다!");
-                }
-                break;
-            case 3: // 이동 취소
-                System.out.println("이동을 취소했습니다.");
-                break;
-            default:
-                System.out.println("올바른 선택을 해주세요.");
-        }
+        // 이동 시도
+        movelocation(destinationChoice);
     }
+
 
 
     // 위치 이동 메서드
@@ -230,13 +178,15 @@ public class Trainer implements ITrainer {
         SurfPokemon surfPokemon = getSurfPokemon();
 
         if (flyPokemon != null) { // Fly 포켓몬 존재
-            flyPokemon.crossOcean(destinationPlace);
-            currentLocation = destination;
-            System.out.printf("위치가 %s(으)로 변경되었습니다.%n", destinationPlace);
+            System.out.printf("%s가 공중날기를 사용하여 %s으로 이동합니다!%n",
+                    flyPokemon.getCustomName(), destinationPlace);
+            currentLocation = destination; // 트레이너 위치 갱신
+            System.out.printf("트레이너가 %s로 이동했습니다.%n", destinationPlace);
         } else if (surfPokemon != null) { // Surf 포켓몬 존재
-            surfPokemon.crossOcean(destinationPlace);
-            currentLocation = destination;
-            System.out.printf("위치가 %s(으)로 변경되었습니다.%n", destinationPlace);
+            System.out.printf("%s가 파도타기를 사용하여 %s으로 이동합니다!%n",
+                    surfPokemon.getCustomName(), destinationPlace);
+            currentLocation = destination; // 트레이너 위치 갱신
+            System.out.printf("트레이너가 %s로 이동했습니다.%n", destinationPlace);
         } else { // Fly/Surf 포켓몬 없음 -> 사용자 확인 필요
             System.out.println("대륙 간 이동에 Fly 또는 Surf 타입의 포켓몬이 필요합니다.");
             Scanner scanner = new Scanner(System.in);
@@ -245,13 +195,14 @@ public class Trainer implements ITrainer {
 
             if (response.equals("yes")) {
                 System.out.println("대륙 간 이동을 강행합니다.");
-                currentLocation = destination;
-                System.out.printf("위치가 %s(으)로 변경되었습니다.%n", destinationPlace);
+                currentLocation = destination; // 트레이너 위치 갱신
+                System.out.printf("트레이너가 %s로 이동했습니다.%n", destinationPlace);
             } else {
                 System.out.println("이동이 취소되었습니다.");
             }
         }
     }
+
 
 
     // 같은 대륙에 속하는지 확인하는 메서드
