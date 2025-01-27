@@ -54,6 +54,7 @@ public class PokeDex {
         Map<Pokemon, PokeCategory> additionalData = Map.ofEntries(
                 Map.entry(new Pokemon("이상해씨", 100, 50, 55), PokeCategory.EARTH),
                 Map.entry(new Pokemon("리자몽", 150, 84, 78), PokeCategory.FIRE),
+                Map.entry(new Pokemon("잉어킹", 170, 88, 65), PokeCategory.WATER),
                 Map.entry(new Pokemon("갸라도스", 190, 125, 79), PokeCategory.WATER),
                 Map.entry(new Pokemon("잠만보", 250, 110, 65), PokeCategory.NORMAL),
                 Map.entry(new Pokemon("루기아", 300, 150, 120), PokeCategory.LEGENDARY),

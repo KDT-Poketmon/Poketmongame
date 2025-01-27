@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class GameLauncher {
     public static void main(String[] args) {
         // 트레이너 생성
@@ -21,8 +23,8 @@ public class GameLauncher {
                 charmander.getPokemonName(), charmander.getHp(), charmander.getAtk(), charmander.getDef());
 
         // 트레이너 이름 설정 및 스타터 포켓몬 추가
-        trainerkamen.getCapturedPokemonList().add(PokeDex.searchPokemon("피카츄")); // Ash의 스타터 포켓몬
-        trainerkadan.getCapturedPokemonList().add(PokeDex.searchPokemon("꼬부기")); // Misty의 스타터 포켓몬
+        trainerkamen.getCapturedPokemonList().add(pikachu); // Ash의 스타터 포켓몬
+        trainerkadan.getCapturedPokemonList().add(squirtle); // Misty의 스타터 포켓몬
 
         System.out.println("\nkamen의 포켓몬:");
         trainerkamen.showPokemons();
@@ -30,26 +32,38 @@ public class GameLauncher {
         System.out.println("\nkadan의 포켓몬:");
         trainerkadan.showPokemons();
 
+        // 레쿠쟈를 PokeDex에서 가져오기
+        Pokemon rayquaza = PokeDex.searchPokemon("레쿠쟈");
+        Pokemon fishKing = PokeDex.searchPokemon("잉어킹");
+
+        // 레쿠쟈를 FlyPokemon으로 초기화
+        FlyPokemon flyRayquaza = null; // flyRayquaza를 null로 초기화
+        SurfPokemon surfFishKing = null;
+
+        if (rayquaza != null) {
+            flyRayquaza = new FlyPokemon(rayquaza.getPokemonName(), "레쿠쟈", rayquaza.getHp(), rayquaza.getAtk(), rayquaza.getDef());
+             // fly() 메서드 사용
+        } else {
+            System.out.println("레쿠쟈를 소유하고 있지 않습니다.");
+        }
+
+        if (fishKing != null) {
+            surfFishKing = new SurfPokemon(fishKing.getPokemonName(), "잉어킹", fishKing.getHp(), fishKing.getAtk(), fishKing.getDef());
+            // fly() 메서드 사용
+        } else {
+            System.out.println("잉어킹을 소유하고 있지 않습니다.");
+        }
+
+        flyRayquaza.crossOcean("달맞이동산");
+        surfFishKing.crossOcean("달맞이동산");
         // 3. 야생 포켓몬 랜덤 만남
-        // 누가? 야생 포켓몬을 만나는가?
         Pokemon wildPokemon = PokeDex.getRandomWildPokemon();
         System.out.printf("\n야생의 %s(이)가 나타났다!%n", wildPokemon.getPokemonName());
         trainerkamen.hunt(wildPokemon);
 
-
-//        // 3. 포켓몬 진화 테스트
-//        pikachu = pikachu.evolve();
-//        System.out.printf("진화 후 이름: %s, HP: %d, Atk: %d, Def: %d%n",
-//                pikachu.getPokemonName(), pikachu.getHp(), pikachu.getAtk(), pikachu.getDef());
+        // 포켓몬 진화 테스트 (주석 처리된 부분)
+        // pikachu = pikachu.evolve();
+        // System.out.printf("진화 후 이름: %s, HP: %d, Atk: %d, Def: %d%n",
+        //         pikachu.getPokemonName(), pikachu.getHp(), pikachu.getAtk(), pikachu.getDef());
     }
-
-
-        //1단계: 리턴이 자식타입인 EvovledPokemon 인데 Pokemon 타입 변수에 할당 가능
-
-        // EvolvedPokemon evolvedPokemon1 = pokemon1.evolve();
-        // pokemon1 = evolvedPokemon1;
-        //2단계: 리턴타입 자체를 다형성 타입으로 핸들링
-        //pokemon1 = pokemon1.evolve();
-
-    }
-
+}
