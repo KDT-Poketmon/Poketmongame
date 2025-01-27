@@ -13,8 +13,16 @@ public class PokeDex {
         EVOLUTION_MAP.put("꼬부기", "어니부기");
         EVOLUTION_MAP.put("어니부기", "거북왕");
         EVOLUTION_MAP.put("이상해씨", "이상해풀");
-        EVOLUTION_MAP.put("푸린","푸크린");
-        EVOLUTION_MAP.put("삐삐","픽시");
+// <<<<<<< feature/Trade-Poket/Trade-Poket_main
+//         EVOLUTION_MAP.put("꼬마돌", "딱구리");
+//         EVOLUTION_MAP.put("미뇽", "망나뇽");
+//         EVOLUTION_MAP.put("나무지기", "나무돌이");
+//         EVOLUTION_MAP.put("리아코", "엘리게일");
+//         EVOLUTION_MAP.put("잉어킹", "갸라도스");
+// =======
+//         EVOLUTION_MAP.put("푸린","푸크린");
+//         EVOLUTION_MAP.put("삐삐","픽시");
+// >>>>>>> main
         // 필요하면 더 추가
     }
 
@@ -64,9 +72,19 @@ public class PokeDex {
                 Map.entry(new Pokemon("레쿠쟈", 310, 180, 120), PokeCategory.SKY),
                 Map.entry(new Pokemon("마그마", 110, 60, 50), PokeCategory.FIRE),
                 Map.entry(new Pokemon("전룡", 140, 75, 60), PokeCategory.ELECTRIC),
-                Map.entry(new Pokemon("푸린",120,60,100),PokeCategory.MOON),
-                Map.entry(new Pokemon("삐삐",140,90,79),PokeCategory.MOON)
+// <<<<<<< feature/Trade-Poket/Trade-Poket_main
+//                 // 추가된 포켓몬
+//                 Map.entry(new Pokemon("삐삐", 100, 55, 45), PokeCategory.NORMAL),
+//                 Map.entry(new Pokemon("망나뇽", 150, 90, 85), PokeCategory.SKY),
+//                 Map.entry(new Pokemon("나무지기", 100, 45, 50), PokeCategory.EARTH),
+//                 Map.entry(new Pokemon("리아코", 100, 48, 55), PokeCategory.WATER),
+//                 Map.entry(new Pokemon("잉어킹", 60, 10, 20), PokeCategory.WATER)
+// =======
+//                 Map.entry(new Pokemon("푸린",120,60,100),PokeCategory.MOON),
+//                 Map.entry(new Pokemon("삐삐",140,90,79),PokeCategory.MOON)
+// >>>>>>> main
         );
+
 
         for (Map.Entry<Pokemon, PokeCategory> entry : additionalData.entrySet()) {
             Pokemon pokemon = entry.getKey();
@@ -77,22 +95,55 @@ public class PokeDex {
         }
 
     }
-    
+
+    //kamen 포켓몬 리스트 정의
+    public static List<Pokemon> createPokemonList(List<String> pokemonNames) {
+        return pokemonNames.stream()
+                .map(name -> {
+                    Pokemon pokemon = searchPokemon(name);
+                    if (pokemon == null) {
+                        System.out.printf("PokeDex.searchPokemon(): %s 포켓몬을 찾을 수 없습니다.%n", name);
+                    }
+                    return pokemon;
+                })
+                .filter(Objects::nonNull)
+                .toList();
+    }
+
+    // 상대 트레이너의 포켓몬 리스트 제공
+    public static List<Pokemon> getKamenPokemons() {
+        // Kamen의 포켓몬 이름 리스트
+        List<String> pokemonNames = List.of("삐삐", "망나뇽", "나무지기", "리아코", "잉어킹");
+
+        // 이름을 기반으로 포켓몬 리스트 생성
+        List<Pokemon> kamenPokemons = createPokemonList(pokemonNames);
+
+        if (kamenPokemons.isEmpty()) {
+            throw new IllegalStateException("Kamen의 포켓몬 리스트가 비어 있습니다. 데이터를 확인하세요.");
+        }
+
+        return kamenPokemons;
+    }
+
+
+
     // 야생의 포켓몬 랜덤 생성
+    static List<Pokemon> wildPokemons = new ArrayList<>();
+
+    static {
+        wildPokemons.addAll(pokemonByName.values());
+        wildPokemons.removeAll(starterPokemons);
+    }
+
     public static Pokemon getRandomWildPokemon() {
-        List<Pokemon> allPokemons = new ArrayList<>(pokemonByName.values());
-
-        // 스타터 포켓몬 제외
-        allPokemons.removeAll(starterPokemons);
-
-        // 랜덤 선택
-        if (allPokemons.isEmpty()) {
+        if (wildPokemons.isEmpty()) {
             throw new IllegalStateException("야생 포켓몬이 없습니다.");
         }
 
         Random random = new Random();
-        return allPokemons.get(random.nextInt(allPokemons.size()));
+        return wildPokemons.get(random.nextInt(wildPokemons.size()));
     }
+
 
     public enum PokeCategory {
         WATER, FIRE, EARTH, SKY, LEGENDARY, MYSTIC, NORMAL, ELECTRIC, MOON

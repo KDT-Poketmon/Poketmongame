@@ -1,6 +1,7 @@
 import lombok.Getter;
 
 import java.util.*;
+
 @Getter
 public class Trainer implements ITrainer {
     Map<String, Pokemon> capturedPokemonByName = new HashMap<>();
@@ -13,7 +14,10 @@ public class Trainer implements ITrainer {
 
     @Override
     public void hunt(Pokemon wildPokemon) {
-        // 야생의 포켓몬은 만나서 싸우거나 잡거나
+//        System.out.println("hunt 호출한 트레이너: " + this.toString());
+//        System.out.println("hunt 호출 전 트레이너 포켓몬:");
+//        this.showPokemons();
+
         System.out.println("1:battle, 2:capture / else:pass");
         int battleOrCapture = inputReader.nextInt();
         switch (battleOrCapture) {
@@ -21,31 +25,32 @@ public class Trainer implements ITrainer {
                 battle(wildPokemon);
                 break;
             case 2:
-                capture(wildPokemon);
                 Pokemon capturedPokemon = capture(wildPokemon);
                 if (capturedPokemon != null) {
                     capturedPokemonList.add(capturedPokemon);
-                    capturedPokemonByName.put(
-                            capturedPokemon.getPokemonName(), capturedPokemon
-                    );
+                    capturedPokemonByName.put(capturedPokemon.getPokemonName(), capturedPokemon);
                 }
                 break;
             default:
+                System.out.println("야생 포켓몬을 놓쳤습니다.");
                 break;
-
         }
+
+//        System.out.println("hunt 종료 후 트레이너 포켓몬:");
+//        this.showPokemons();
     }
+
 
     @Override
     public Pokemon capture(Pokemon wildPokemon) {
-        //포켓몬을 잡거나 놓치거나
+        // 포켓몬을 잡거나 놓치거나
+        System.out.printf("%s 포켓몬을 잡았습니다!%n", wildPokemon.getPokemonName());
         return wildPokemon;
     }
 
     @Override
     public void battle(ITrainer enemyTrainer) {
         //
-
     }
 
     @Override
@@ -72,8 +77,6 @@ public class Trainer implements ITrainer {
                 // 상대 포켓몬 공격
                 wildPokemon.attack(myPokemon);
             }
-
-            // 턴 교체
             isMyTurn = !isMyTurn;
         }
 
@@ -84,7 +87,6 @@ public class Trainer implements ITrainer {
             System.out.printf("%s이(가) 쓰러졌습니다! 패배!%n", myPokemon.getPokemonName());
         }
     }
-
 
     @Override
     public Pokemon searchDex(String pokemonName) {
@@ -107,7 +109,110 @@ public class Trainer implements ITrainer {
         for (Pokemon pokemon : capturedPokemonList) {
             System.out.printf("이름: %s, HP: %d, Atk: %d, Def: %d%n",
                     pokemon.getPokemonName(), pokemon.getHp(), pokemon.getAtk(), pokemon.getDef());
+//            System.out.println(pokemon.getPokemonName() );
         }
+    }
+
+    // === 새롭게 추가된 기능 ===
+    public void tradePokemon(Trainer otherTrainer) {
+        if (capturedPokemonList.isEmpty()) {
+            System.out.println("교환 가능한 포켓몬이 없습니다.");
+            return;
+        }
+
+        if (otherTrainer.capturedPokemonList.isEmpty()) {
+            System.out.println("상대 트레이너가 교환 가능한 포켓몬이 없습니다.");
+            return;
+        }
+
+        System.out.println("당신의 포켓몬:");
+        showPokemons();
+
+        System.out.println("상대 트레이너의 포켓몬:");
+        otherTrainer.showPokemons();
+
+        System.out.println("교환할 당신의 포켓몬 이름을 입력하세요:");
+        String myPokemonName = inputReader.nextLine();
+        Pokemon myPokemon = capturedPokemonByName.get(myPokemonName);
+
+        if (myPokemon == null) {
+            System.out.println("해당 이름의 포켓몬이 없습니다. 교환 취소.");
+            return;
+        }
+
+        System.out.println("상대 트레이너가 교환할 포켓몬 이름을 입력하세요:");
+        String otherPokemonName = inputReader.nextLine();
+        Pokemon otherPokemon = otherTrainer.capturedPokemonByName.get(otherPokemonName);
+
+        if (otherPokemon == null) {
+            System.out.println("상대 트레이너가 해당 이름의 포켓몬을 가지고 있지 않습니다. 교환 취소.");
+            return;
+        }
+
+        // 교환 수행
+        capturedPokemonList.remove(myPokemon);
+        capturedPokemonByName.remove(myPokemon.getPokemonName());
+        capturedPokemonList.add(otherPokemon);
+        capturedPokemonByName.put(otherPokemon.getPokemonName(), otherPokemon);
+
+        otherTrainer.capturedPokemonList.remove(otherPokemon);
+        otherTrainer.capturedPokemonByName.remove(otherPokemon.getPokemonName());
+        otherTrainer.capturedPokemonList.add(myPokemon);
+        otherTrainer.capturedPokemonByName.put(myPokemon.getPokemonName(), myPokemon);
+
+        System.out.printf("교환 완료! 당신의 새로운 포켓몬: %s%n", otherPokemon.getPokemonName());
+
+        // 진화 동작 수행
+        evolveIfEligible(myPokemon, true);
+        evolveIfEligible(otherPokemon, true);
+    }
+
+    private void evolveIfEligible(Pokemon pokemon, boolean isTradeEvolution) {
+        // 통신 교환 진화 조건
+        if (isTradeEvolution && isTradeEvolutionEligible(pokemon)) {
+            System.out.printf("%s은(는) 통신 교환으로 인해 진화합니다!%n", pokemon.getPokemonName());
+            pokemon.evolve();
+        } else {
+            System.out.printf("%s은(는) 진화할 수 없는 포켓몬입니다.%n", pokemon.getPokemonName());
+        }
+    }
+
+    private boolean isTradeEvolutionEligible(Pokemon pokemon) {
+        // 교환으로 진화 가능한 포켓몬 리스트
+        Set<String> tradeEvolutionNames = Set.of("고오스", "윤겔라", "토게피");
+        return tradeEvolutionNames.contains(pokemon.getPokemonName());
+    }
+
+    // === 테스트용 main 메서드 ===
+    public static void main(String[] args) {
+        Trainer kadan = new Trainer();
+        Trainer kamen = new Trainer();
+
+        /* 테스트 데이터 설정
+        Pokemon kadanPokemon = new Pokemon("고오스", 100, 50, 30);
+        Pokemon kamenPokemon = new Pokemon("토게피", 120, 60, 40);
+
+        kadan.capturedPokemonList.add(kadanPokemon);
+        kadan.capturedPokemonByName.put(kadanPokemon.getPokemonName(), kadanPokemon);
+
+        kamen.capturedPokemonList.add(kamenPokemon);
+        kamen.capturedPokemonByName.put(kamenPokemon.getPokemonName(), kamenPokemon);
+        */
+
+        System.out.println("=== 교환 전 상태 ===");
+        System.out.println("kadan의 포켓몬:");
+        kadan.showPokemons();
+        System.out.println("kamen의 포켓몬:");
+        kamen.showPokemons();
+
+        System.out.println("\n=== 교환 실행 ===");
+        kadan.tradePokemon(kamen);
+
+        System.out.println("\n=== 교환 후 상태 ===");
+        System.out.println("kadan의 포켓몬:");
+        kadan.showPokemons();
+        System.out.println("kamen의 포켓몬:");
+        kamen.showPokemons();
     }
 
     // 현재 위치를 출력하는 메서드
