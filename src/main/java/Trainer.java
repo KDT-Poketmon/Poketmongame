@@ -101,8 +101,9 @@ public class Trainer implements ITrainer {
 
         System.out.println("트레이너가 소유한 포켓몬 리스트:");
         for (Pokemon pokemon : capturedPokemonList) {
-            System.out.printf("이름: %s, HP: %d, Atk: %d, Def: %d%n",
-                    pokemon.getPokemonName(), pokemon.getHp(), pokemon.getAtk(), pokemon.getDef());
+//            System.out.printf("이름: %s, HP: %d, Atk: %d, Def: %d%n",
+//                    pokemon.getPokemonName(), pokemon.getHp(), pokemon.getAtk(), pokemon.getDef());
+            System.out.println(pokemon.getPokemonName() );
         }
     }
 }
