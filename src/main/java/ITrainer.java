@@ -8,5 +8,5 @@ public interface ITrainer {
    Pokemon searchDex(String pokemonName);
    Map<String, Pokemon> searchDex(PokeDex.PokeCategory category);
    void showPokemons();
-   void move(String currentPokemonName);
+   void move(String currentLocation);
 }
