@@ -21,9 +21,8 @@ public class GameLauncher {
                 charmander.getPokemonName(), charmander.getHp(), charmander.getAtk(), charmander.getDef());
 
         // 트레이너 이름 설정 및 스타터 포켓몬 추가
-        trainerkamen.getCapturedPokemonList().add(PokeDex.searchPokemon("피카츄")); // Ash의 스타터 포켓몬
-        trainerkadan.getCapturedPokemonList().add(PokeDex.searchPokemon("꼬부기")); // Misty의 스타터 포켓몬
-
+        trainerkamen.getCapturedPokemonList().add(PokeDex.searchPokemon("피카츄"));
+        trainerkadan.getCapturedPokemonList().add(PokeDex.searchPokemon("꼬부기"));
         System.out.println("\nkamen의 포켓몬:");
         trainerkamen.showPokemons();
 
