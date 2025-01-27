@@ -7,6 +7,7 @@ public class Trainer implements ITrainer {
     Map<String, Pokemon> capturedPokemonByName = new HashMap<>();
     Scanner inputReader = new Scanner(System.in);
 
+
     @Override
     public void hunt(Pokemon wildPokemon) {
         // 야생의 포켓몬은 만나서 싸우거나 잡거나
@@ -118,5 +119,9 @@ public class Trainer implements ITrainer {
             System.out.printf("이름: %s, HP: %d, Atk: %d, Def: %d%n",
                     pokemon.getPokemonName(), pokemon.getHp(), pokemon.getAtk(), pokemon.getDef());
         }
+    }
+
+    public Pokemon findWildPokemon() {
+        return PokeDex.getRandomWildPokemon();
     }
 }

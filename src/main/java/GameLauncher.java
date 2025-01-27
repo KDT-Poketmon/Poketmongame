@@ -31,7 +31,8 @@ public class GameLauncher {
 
         // 3. 야생 포켓몬 랜덤 만남
         // 누가? 야생 포켓몬을 만나는가?
-        Pokemon wildPokemon = PokeDex.getRandomWildPokemon();
+//        Pokemon wildPokemon = PokeDex.getRandomWildPokemon();
+        Pokemon wildPokemon = trainerkadan.findWildPokemon();
         System.out.printf("\n야생의 %s(이)가 나타났다!%n", wildPokemon.getPokemonName());
         trainerkamen.hunt(wildPokemon);
 
