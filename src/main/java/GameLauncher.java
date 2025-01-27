@@ -21,9 +21,10 @@ public class GameLauncher {
         while (true) {
             System.out.println("\n--- 메뉴 선택 ---");
             System.out.println("1. 이동하기");
-            System.out.println("2. 현재 포켓몬 보기");
-            System.out.println("3. 야생 포켓몬 만나기");
-            System.out.println("4. 종료");
+            System.out.println("2. 현 위치 확인하기");
+            System.out.println("3. 현재 포켓몬 보기");
+            System.out.println("4. 야생 포켓몬 만나기");
+            System.out.println("5. 종료");
             System.out.print("선택: ");
 
             int choice;
@@ -40,15 +41,19 @@ public class GameLauncher {
                     trainerKamen.chooseDestinationAndMove();
                     break;
                 case 2:
+                    System.out.print("트레이너의 ");
+                    trainerKamen.myLocation();
+                    break;
+                case 3:
                     // 포켓몬 리스트 출력
                     System.out.println("\n--- 현재 보유 포켓몬 ---");
                     trainerKamen.showPokemons();
                     break;
-                case 3:
+                case 4:
                     // 야생 포켓몬 만나기
                     encounterWildPokemon(trainerKamen);
                     break;
-                case 4:
+                case 5:
                     // 종료
                     System.out.println("게임을 종료합니다.");
                     return;
