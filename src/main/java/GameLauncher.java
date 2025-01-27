@@ -44,7 +44,7 @@ public class GameLauncher {
             flyRayquaza = new FlyPokemon(rayquaza.getPokemonName(), "레쿠쟈", rayquaza.getHp(), rayquaza.getAtk(), rayquaza.getDef());
              // fly() 메서드 사용
         } else {
-            System.out.println("레쿠쟈를 소유2하고 있지 않습니다.");
+            System.out.println("레쿠쟈를 소유하고 있지 않습니다.");
         }
 
         if (fishKing != null) {
