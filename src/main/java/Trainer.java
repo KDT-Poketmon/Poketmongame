@@ -177,7 +177,7 @@ public class Trainer implements ITrainer {
         Trainer kadan = new Trainer();
         Trainer kamen = new Trainer();
 
-        // 테스트 데이터 설정
+        /* 테스트 데이터 설정
         Pokemon kadanPokemon = new Pokemon("고오스", 100, 50, 30);
         Pokemon kamenPokemon = new Pokemon("토게피", 120, 60, 40);
 
@@ -186,6 +186,7 @@ public class Trainer implements ITrainer {
 
         kamen.capturedPokemonList.add(kamenPokemon);
         kamen.capturedPokemonByName.put(kamenPokemon.getPokemonName(), kamenPokemon);
+        */
 
         System.out.println("=== 교환 전 상태 ===");
         System.out.println("kadan의 포켓몬:");
