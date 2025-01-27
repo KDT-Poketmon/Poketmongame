@@ -33,7 +33,6 @@ public class Pokemon implements IPokemon {
         this(pokemonName, pokemonName, Hp, Atk, Def); // customName 기본값은 pokemonName으로 설정
     }
 
-
     //공격
     @Override
     public void attack(Pokemon tgpokemon) {
@@ -84,6 +83,27 @@ public class Pokemon implements IPokemon {
         return this; // 현재 객체 반환
     }
 
+    public Pokemon evolve(PokeDex.PokeCategory pokeCategory) {
+        this.setPokeCategory(pokeCategory);
+        if (pokeCategory == PokeDex.PokeCategory.MOON)
+        {
+            System.out.printf("달 속성 포켓몬 %s이(가) 진화합니다!%n", this.getPokemonName());
 
+            // 진화 후 이름 설정
+            String evolvedName = PokeDex.getEvolvedName(this.getPokemonName());
+            this.setPokemonName(evolvedName);
+
+            // 능력치 증가
+            this.setHp(this.getHp() + 50);
+            this.setAtk(this.getAtk() + 30);
+            this.setDef(this.getDef() + 20);
+
+            System.out.printf("진화 후 상태: 이름=%s, HP=%d, Atk=%d, Def=%d%n",
+                    this.getPokemonName(), this.getHp(), this.getAtk(), this.getDef());
+
+            return this; // 현재 객체 반환
+        }
+        return null;
+    }
 }
 
