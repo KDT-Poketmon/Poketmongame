@@ -13,7 +13,7 @@ public class Continent {
         Map.put(7, "하나지방");
         Map.put(8,"가라르지방");
         Map.put(9, "팔데아지방");
-        Map.put(10," 달맞이산");
+        Map.put(10,"달맞이산");
         Map.put(11,"태초마을");
     }
 }
