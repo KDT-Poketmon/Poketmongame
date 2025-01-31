@@ -1,3 +1,4 @@
 public interface IOceanCrossable {
-    public void crossOcean(String tgCity);
+    void crossOcean(String tgCity);
+    void crossOcean(PokeTown pokeTown);
 }

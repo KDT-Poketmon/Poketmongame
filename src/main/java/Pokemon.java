@@ -24,13 +24,17 @@ public class Pokemon implements IPokemon {
         this.Def = Def;
     }
 
-    // 간소화된 생성자: 커스텀 이름과 능력치를 기본값으로 설정
+    // 스타팅 포켓몬에 대한 생성자
     public Pokemon(String pokemonName) {
         this(pokemonName, pokemonName, 100, 50, 30);
     }
 
+    // customName과 일반 포켓몬에 대한 생성자
     public Pokemon(String pokemonName, int Hp, int Atk, int Def) {
         this(pokemonName, pokemonName, Hp, Atk, Def); // customName 기본값은 pokemonName으로 설정
+    }
+
+    public Pokemon(String pokemonName, String customName, int hp, int atk, int def, PokeDex.PokeCategory pokeCategory) {
     }
 
     //공격

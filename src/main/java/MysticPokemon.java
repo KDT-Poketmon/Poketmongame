@@ -7,5 +7,5 @@ class MysticPokemon extends Pokemon {
         super(pokemonName);
     }
 
-    //
+
 }

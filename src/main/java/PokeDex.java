@@ -1,6 +1,7 @@
 import java.util.*;
 
 public class PokeDex {
+    public static PokeDex.PokeCategory PokeCategory;
     //데이터 타입 필드 추가
     static Map<String, Pokemon> pokemonByName = new HashMap<>();
     static Map<PokeCategory, Map<String, Pokemon>> pokemonByCategory = new HashMap<>();

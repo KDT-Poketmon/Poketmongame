@@ -9,6 +9,7 @@ public interface ITrainer {
    Pokemon searchDex(String pokemonName);
    Map<String, Pokemon> searchDex(PokeDex.PokeCategory category);
    void showPokemons();
-   void myLocation();
-   void movelocation(int destination);
+//   void myLocation();
+//   void movelocation(int destination);
+   void townMove(PokeTown tgTown);
 }
